@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Genera el PDF del certificado (diseno generico profesional) con el QR
@@ -77,7 +78,7 @@ public class PdfGenerationService {
 
             document.close();
             return out.toByteArray();
-        } catch (DocumentException e) {
+        } catch (DocumentException | IOException e) {
             throw new IllegalStateException("No se pudo generar el PDF del certificado", e);
         }
     }

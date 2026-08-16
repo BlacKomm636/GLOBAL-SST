@@ -1,7 +1,6 @@
 package com.certifica.security;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ public class JwtService {
                 .subject(subjectEmail)
                 .issuedAt(now)
                 .expiration(expiry)
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(key)
                 .compact();
     }
 
