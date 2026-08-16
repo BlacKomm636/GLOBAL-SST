@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import type { CertificateVerification } from '../types';
 import { verifyCertificate } from '../api/certificates';
@@ -48,6 +48,12 @@ export default function VerifyPage() {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
       </Helmet>
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
+        <Link to="/login" style={{ fontSize: 14, color: '#64748b' }}>
+          Acceso administrador →
+        </Link>
+      </div>
 
       <div className="card">
         <h1 style={{ marginTop: 0 }}>Validacion de certificados</h1>

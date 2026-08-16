@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Helmet } from 'react-helmet-async';
 
@@ -46,6 +46,9 @@ export default function LoginPage() {
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
+        <p style={{ marginTop: 16, fontSize: 14 }}>
+          <Link to="/" style={{ color: '#64748b' }}>← Volver a validacion publica</Link>
+        </p>
       </div>
     </div>
   );
