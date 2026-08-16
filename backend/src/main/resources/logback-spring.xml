@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Logging estructurado: timestamp, nivel, logger y mensaje en formato consistente,
+         facil de parsear por herramientas de agregacion de logs (Render, Datadog, etc.) -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} level=%-5level logger=%logger{36} thread=%thread msg="%msg"%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="com.certifica" level="DEBUG"/>
+</configuration>

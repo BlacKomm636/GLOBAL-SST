@@ -1,0 +1,20 @@
+# Uso local: levanta solo Postgres para desarrollo.
+# El backend se corre aparte con `mvn spring-boot:run` (perfil por defecto).
+# Esto NO reemplaza Supabase en produccion.
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: certifica-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: certifica
+      POSTGRES_USER: certifica
+      POSTGRES_PASSWORD: certifica
+    ports:
+      - "5432:5432"
+    volumes:
+      - certifica_pg_data:/var/lib/postgresql/data
+
+volumes:
+  certifica_pg_data:
