@@ -506,8 +506,9 @@ Guarda ese email/contraseña — es con lo que probarás el login en Task 12.
 - Modify: `frontend/src/pages/LoginPage.tsx`
 - Create: `frontend/src/pages/ResetPasswordPage.tsx`
 - Modify: `frontend/src/routes/AppRoutes.tsx`
-- Delete: `frontend/src/api/client.ts` (axios, ya no se usa)
 - Modify: `frontend/src/types/index.ts`
+
+> **Nota (ruling post-ejecución, ver ledger):** `frontend/src/api/client.ts` NO se borra en esta tarea — `institutions.ts`, `courses.ts` (Task 9) y `certificates.ts` (Task 10) todavía lo importan y no se migran hasta esas tareas. El borrado se movió al final de la Task 10 (la última que migra un consumidor de `client.ts`). Task 8 solo elimina la interfaz `AuthResponse` de `types/index.ts`.
 
 **Interfaces:**
 - Consumes: `supabase` de `frontend/src/api/supabaseClient.ts` (Task 5)
@@ -833,13 +834,11 @@ Y dentro de `<Routes>`, junto a las rutas públicas existentes:
 <Route path="/reset-password" element={<ResetPasswordPage />} />
 ```
 
-- [ ] **Step 7: Eliminar el cliente axios y limpiar tipos**
-
-```bash
-git rm frontend/src/api/client.ts
-```
+- [ ] **Step 7: Limpiar tipos (client.ts se elimina despues, en la Task 10)**
 
 En `frontend/src/types/index.ts`, elimina la interfaz `AuthResponse` (ya no se usa — `login()` ahora devuelve `{ email: string }`).
+
+No borres `frontend/src/api/client.ts` todavia: `institutions.ts`, `courses.ts` (Task 9) y `certificates.ts` (Task 10) siguen importandolo hasta que esas tareas los migren. El borrado se hace al final de la Task 10.
 
 - [ ] **Step 8: Verificar tipos**
 
@@ -1117,11 +1116,22 @@ npx tsc --noEmit -p tsconfig.app.json
 
 Expected: sin errores (aunque `POST /api/certificates` todavía no existe como función real hasta Task 11 — eso no es un error de tipos, solo fallará en runtime hasta entonces).
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 3: Eliminar `frontend/src/api/client.ts` (ya no lo usa nadie)**
+
+Con esta tarea, `institutions.ts`, `courses.ts` (Task 9) y `certificates.ts` (este mismo archivo, arriba) ya no dependen del stub axios que dejó la Task 5. Bórralo:
+
+```bash
+git rm frontend/src/api/client.ts
+```
+
+Vuelve a correr `npx tsc --noEmit -p tsconfig.app.json` desde `frontend/` y confirma que sigue sin errores.
+
+- [ ] **Step 4: Commit**
 
 ```bash
 git add frontend/src/api/certificates.ts
-git commit -m "feat: migrar listado/revocacion/verificacion de certificados a supabase-js"
+git rm frontend/src/api/client.ts
+git commit -m "feat: migrar listado/revocacion/verificacion de certificados a supabase-js; eliminar cliente axios sin uso"
 ```
 
 ---
