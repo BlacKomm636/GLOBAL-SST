@@ -17,10 +17,13 @@ export interface IssueRequestBody {
   issueDate?: string;
 }
 
+const ISSUE_DATE_SHAPE = /^\d{4}-\d{2}-\d{2}$/;
+
 export function validateIssueBody(body: IssueRequestBody): string | null {
   if (!body.institutionId) return 'institutionId es requerido';
   if (!body.courseId) return 'courseId es requerido';
   if (!body.recipientName || !body.recipientName.trim()) return 'recipientName es requerido';
   if (!body.issueDate) return 'issueDate es requerido';
+  if (!ISSUE_DATE_SHAPE.test(body.issueDate)) return 'issueDate debe tener el formato YYYY-MM-DD';
   return null;
 }

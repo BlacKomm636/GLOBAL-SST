@@ -46,6 +46,17 @@ describe('validateIssueBody', () => {
     ).toBe('issueDate es requerido');
   });
 
+  it('rejects an issueDate that does not match the YYYY-MM-DD shape', () => {
+    expect(
+      validateIssueBody({
+        institutionId: 'i1',
+        courseId: 'c1',
+        recipientName: 'Ana',
+        issueDate: 'not-a-date',
+      })
+    ).toBe('issueDate debe tener el formato YYYY-MM-DD');
+  });
+
   it('accepts a fully populated body', () => {
     expect(
       validateIssueBody({
