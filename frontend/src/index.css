@@ -1,6 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 :root {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   color-scheme: light;
+
+  /* Color */
+  --ink-900: #12213a;
+  --ink-700: #2b3b57;
+  --ink-500: #5b6472;
+  --paper: #f5f3ee;
+  --surface: #ffffff;
+  --line: #dcd6c4;
+  --line-strong: #c7c0a8;
+  --seal-green: #1e6f5c;
+  --seal-green-dark: #16543f;
+  --seal-gold: #b4863a;
+  --seal-gold-soft: #e8d9b8;
+  --revoked: #9b3a34;
+  --revoked-soft: #f3ded9;
+  --valid-soft: #dcece5;
+
+  /* Type */
+  --font-display: 'Spectral', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  font-family: var(--font-body);
 }
 
 * {
@@ -9,12 +33,28 @@
 
 body {
   margin: 0;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: var(--paper);
+  color: var(--ink-900);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--ink-900);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+h1 { font-size: 28px; }
+h2 { font-size: 20px; }
+
+p {
+  line-height: 1.55;
 }
 
 a {
-  color: #2563eb;
+  color: var(--seal-green-dark);
 }
 
 button {
@@ -22,8 +62,13 @@ button {
   cursor: pointer;
 }
 
-input {
+input, select {
   font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--seal-gold);
+  outline-offset: 2px;
 }
 
 .container {
@@ -33,68 +78,137 @@ input {
 }
 
 .card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 28px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-500);
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: var(--seal-green);
   color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
+  border-radius: 4px;
+  padding: 10px 18px;
   font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.15s ease;
 }
 
-.btn-primary:hover {
-  background: #1d4ed8;
+.btn-primary:hover:not(:disabled) {
+  background: var(--seal-green-dark);
+}
+
+.btn-primary:disabled {
+  background: var(--ink-500);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink-700);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 9px 16px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.btn-secondary:hover {
+  border-color: var(--revoked);
+  color: var(--revoked);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 14px;
 }
 
-th, td {
+th {
   text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:hover {
+  background: rgba(180, 134, 58, 0.05);
+}
+
+.mono {
+  font-family: var(--font-mono);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   margin-bottom: 14px;
 }
 
-.field input {
-  padding: 8px 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+.field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-700);
+}
+
+.field input,
+.field select {
+  padding: 9px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--ink-900);
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--seal-green);
 }
 
 .error-text {
-  color: #dc2626;
+  color: var(--revoked);
   font-size: 14px;
 }
 
-.badge-active {
-  background: #dcfce7;
-  color: #166534;
-  padding: 2px 8px;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge-active {
+  background: var(--valid-soft);
+  color: var(--seal-green-dark);
 }
 
 .badge-revoked {
-  background: #fee2e2;
-  color: #991b1b;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
+  background: var(--revoked-soft);
+  color: var(--revoked);
 }

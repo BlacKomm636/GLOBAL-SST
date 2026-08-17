@@ -6,8 +6,9 @@ export default function DashboardPage() {
       <Helmet>
         <title>Dashboard · Certifica</title>
       </Helmet>
+      <p className="eyebrow" style={{ marginBottom: 4 }}>Panel administrador</p>
       <h1>Dashboard</h1>
-      <p>Usa el menu superior para administrar instituciones, cursos y certificados.</p>
+      <p style={{ color: 'var(--ink-500)' }}>Usa el menu superior para administrar instituciones, cursos y certificados.</p>
     </div>
   );
 }

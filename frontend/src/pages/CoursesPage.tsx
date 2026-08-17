@@ -47,9 +47,10 @@ export default function CoursesPage() {
       <Helmet>
         <title>Cursos · Certifica</title>
       </Helmet>
+      <p className="eyebrow" style={{ marginBottom: 4 }}>Panel administrador</p>
       <h1>Cursos</h1>
 
-      <div className="card" style={{ marginBottom: 24 }}>
+      <div className="card" style={{ marginBottom: 24, marginTop: 16 }}>
         <form onSubmit={handleCreate} style={{ display: 'flex', gap: 12, alignItems: 'flex-end' }}>
           <div className="field">
             <label>Institucion</label>
@@ -67,7 +68,7 @@ export default function CoursesPage() {
             <label>Horas</label>
             <input type="number" value={hours} onChange={(e) => setHours(e.target.value === '' ? '' : Number(e.target.value))} />
           </div>
-          <button className="btn-primary" type="submit">Crear</button>
+          <button className="btn-primary" type="submit" style={{ marginBottom: 14 }}>Crear</button>
         </form>
         {error && <p className="error-text">{error}</p>}
       </div>
@@ -81,8 +82,8 @@ export default function CoursesPage() {
             <tr key={c.id}>
               <td>{c.name}</td>
               <td>{c.institutionName}</td>
-              <td>{c.hours ?? '-'}</td>
-              <td><button onClick={() => handleDelete(c.id)}>Eliminar</button></td>
+              <td className="mono">{c.hours ?? '-'}</td>
+              <td><button className="btn-secondary" onClick={() => handleDelete(c.id)}>Eliminar</button></td>
             </tr>
           ))}
         </tbody>

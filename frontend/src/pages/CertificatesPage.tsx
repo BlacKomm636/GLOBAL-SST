@@ -58,9 +58,10 @@ export default function CertificatesPage() {
       <Helmet>
         <title>Certificados · Certifica</title>
       </Helmet>
+      <p className="eyebrow" style={{ marginBottom: 4 }}>Panel administrador</p>
       <h1>Certificados</h1>
 
-      <div className="card" style={{ marginBottom: 24 }}>
+      <div className="card" style={{ marginBottom: 24, marginTop: 16 }}>
         <form onSubmit={handleIssue}>
           <div style={{ display: 'flex', gap: 12 }}>
             <div className="field" style={{ flex: 1 }}>
@@ -105,16 +106,18 @@ export default function CertificatesPage() {
         <tbody>
           {items.map((c) => (
             <tr key={c.id}>
-              <td>{c.code}</td>
+              <td className="mono">{c.code}</td>
               <td>{c.recipientName}</td>
               <td>{c.courseName}</td>
               <td>
-                <span className={c.status === 'ACTIVE' ? 'badge-active' : 'badge-revoked'}>{c.status}</span>
+                <span className={c.status === 'ACTIVE' ? 'badge badge-active' : 'badge badge-revoked'}>
+                  {c.status === 'ACTIVE' ? 'Valido' : 'Revocado'}
+                </span>
               </td>
-              <td style={{ display: 'flex', gap: 8 }}>
+              <td style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
                 {c.pdfUrl && <a href={c.pdfUrl} target="_blank" rel="noreferrer">PDF</a>}
                 <a href={c.verificationUrl} target="_blank" rel="noreferrer">Verificar</a>
-                {c.status === 'ACTIVE' && <button onClick={() => handleRevoke(c.id)}>Revocar</button>}
+                {c.status === 'ACTIVE' && <button className="btn-secondary" onClick={() => handleRevoke(c.id)}>Revocar</button>}
               </td>
             </tr>
           ))}

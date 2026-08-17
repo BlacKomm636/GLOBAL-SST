@@ -40,9 +40,10 @@ export default function InstitutionsPage() {
       <Helmet>
         <title>Instituciones · Certifica</title>
       </Helmet>
+      <p className="eyebrow" style={{ marginBottom: 4 }}>Panel administrador</p>
       <h1>Instituciones</h1>
 
-      <div className="card" style={{ marginBottom: 24 }}>
+      <div className="card" style={{ marginBottom: 24, marginTop: 16 }}>
         <form onSubmit={handleCreate} style={{ display: 'flex', gap: 12, alignItems: 'flex-end' }}>
           <div className="field" style={{ flex: 1 }}>
             <label>Nombre</label>
@@ -50,9 +51,9 @@ export default function InstitutionsPage() {
           </div>
           <div className="field" style={{ flex: 1 }}>
             <label>Slug (unico)</label>
-            <input required value={slug} onChange={(e) => setSlug(e.target.value)} />
+            <input className="mono" required value={slug} onChange={(e) => setSlug(e.target.value)} />
           </div>
-          <button className="btn-primary" type="submit">Crear</button>
+          <button className="btn-primary" type="submit" style={{ marginBottom: 14 }}>Crear</button>
         </form>
         {error && <p className="error-text">{error}</p>}
       </div>
@@ -65,8 +66,8 @@ export default function InstitutionsPage() {
           {items.map((i) => (
             <tr key={i.id}>
               <td>{i.name}</td>
-              <td>{i.slug}</td>
-              <td><button onClick={() => handleDelete(i.id)}>Eliminar</button></td>
+              <td className="mono">{i.slug}</td>
+              <td><button className="btn-secondary" onClick={() => handleDelete(i.id)}>Eliminar</button></td>
             </tr>
           ))}
         </tbody>

@@ -30,8 +30,9 @@ export default function LoginPage() {
       <Helmet>
         <title>Iniciar sesion · Certifica</title>
       </Helmet>
-      <div className="card">
-        <h2>Panel Administrador</h2>
+      <div className="card" style={{ borderTop: '3px solid var(--seal-gold)' }}>
+        <p className="eyebrow" style={{ marginBottom: 4 }}>Certifica</p>
+        <h2 style={{ marginBottom: 20 }}>Panel administrador</h2>
         <form onSubmit={handleSubmit}>
           <div className="field">
             <label htmlFor="email">Correo</label>
@@ -42,12 +43,12 @@ export default function LoginPage() {
             <input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           {error && <p className="error-text">{error}</p>}
-          <button className="btn-primary" type="submit" disabled={loading}>
+          <button className="btn-primary" type="submit" disabled={loading} style={{ width: '100%' }}>
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
-        <p style={{ marginTop: 16, fontSize: 14 }}>
-          <Link to="/" style={{ color: '#64748b' }}>← Volver a validacion publica</Link>
+        <p style={{ marginTop: 20, fontSize: 13 }}>
+          <Link to="/" style={{ color: 'var(--ink-500)' }}>← Volver a validacion publica</Link>
         </p>
       </div>
     </div>
