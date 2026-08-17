@@ -1,39 +1,43 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { supabase } from '../api/supabaseClient';
 import * as authApi from '../api/auth';
 
 interface AuthState {
-  token: string | null;
   email: string | null;
   isAuthenticated: boolean;
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
 
-const TOKEN_KEY = 'certifica_token';
-const EMAIL_KEY = 'certifica_email';
-
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem(TOKEN_KEY));
-  const [email, setEmail] = useState<string | null>(() => localStorage.getItem(EMAIL_KEY));
+  const [email, setEmail] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = useCallback(async (loginEmail: string, password: string) => {
-    const response = await authApi.login(loginEmail, password);
-    localStorage.setItem(TOKEN_KEY, response.token);
-    localStorage.setItem(EMAIL_KEY, response.email);
-    setToken(response.token);
-    setEmail(response.email);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setEmail(data.session?.user.email ?? null);
+      setLoading(false);
+    });
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+      setEmail(session?.user.email ?? null);
+    });
+    return () => subscription.subscription.unsubscribe();
   }, []);
 
-  const logout = useCallback(() => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(EMAIL_KEY);
-    setToken(null);
+  const login = useCallback(async (loginEmail: string, password: string) => {
+    const result = await authApi.login(loginEmail, password);
+    setEmail(result.email);
+  }, []);
+
+  const logout = useCallback(async () => {
+    await authApi.logout();
     setEmail(null);
   }, []);
 
-  const value: AuthState = { token, email, isAuthenticated: !!token, login, logout };
+  const value: AuthState = { email, isAuthenticated: !!email, loading, login, logout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

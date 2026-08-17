@@ -6,6 +6,7 @@ import InstitutionsPage from '../pages/InstitutionsPage';
 import CoursesPage from '../pages/CoursesPage';
 import CertificatesPage from '../pages/CertificatesPage';
 import VerifyPage from '../pages/VerifyPage';
+import ResetPasswordPage from '../pages/ResetPasswordPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import AdminLayout from '../components/layout/AdminLayout';
 
@@ -16,6 +17,7 @@ export default function AppRoutes() {
       <Route path="/" element={<VerifyPage />} />
       <Route path="/verify/:code" element={<VerifyPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
       {/* Panel Admin protegido */}
       <Route

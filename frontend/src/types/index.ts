@@ -44,9 +44,3 @@ export interface CertificateVerification {
   pdfUrl?: string;
 }
 
-export interface AuthResponse {
-  token: string;
-  expiresInMs: number;
-  email: string;
-  fullName: string;
-}
