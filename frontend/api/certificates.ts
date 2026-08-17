@@ -27,23 +27,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
   const admin = createClient(supabaseUrl, serviceRoleKey);
 
-  const { data: userData, error: userError } = await admin.auth.getUser(token);
-  if (userError || !userData.user) {
-    res.status(401).json({ error: 'Sesion invalida' });
-    return;
-  }
-
-  const { data: adminProfile } = await admin
-    .from('admin_profile')
-    .select('id')
-    .eq('id', userData.user.id)
-    .maybeSingle();
-  if (!adminProfile) {
-    res.status(403).json({ error: 'No autorizado' });
-    return;
-  }
-
   try {
+    const { data: userData, error: userError } = await admin.auth.getUser(token);
+    if (userError || !userData.user) {
+      res.status(401).json({ error: 'Sesion invalida' });
+      return;
+    }
+
+    const { data: adminProfile } = await admin
+      .from('admin_profile')
+      .select('id')
+      .eq('id', userData.user.id)
+      .maybeSingle();
+    if (!adminProfile) {
+      res.status(403).json({ error: 'No autorizado' });
+      return;
+    }
+
     const body = (req.body ?? {}) as IssueRequestBody;
     const validationError = validateIssueBody(body);
     if (validationError) {
