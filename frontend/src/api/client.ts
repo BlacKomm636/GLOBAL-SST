@@ -1,27 +1,24 @@
-import axios from 'axios';
+// Cliente HTTP centralizado - DEPRECATED
+// Este archivo ha sido reemplazado por Supabase en la fase de migración.
+// Las funciones de API serán actualizadas en tareas posteriores para usar supabaseClient.
+// Por ahora, este stub mantiene compatibilidad con el código existente durante la transición.
 
-// Cliente HTTP centralizado: base URL desde env, interceptor de token JWT
-// y manejo uniforme de errores para toda la app.
-const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api/v1',
-});
+interface ApiClientStub {
+  get<T>(url: string): Promise<{ data: T }>;
+  post<T>(url: string, data?: unknown): Promise<{ data: T }>;
+  delete(url: string): Promise<unknown>;
+}
 
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('certifica_token');
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('certifica_token');
-    }
-    return Promise.reject(error);
-  }
-);
+const apiClient: ApiClientStub = {
+  get<T>(): Promise<{ data: T }> {
+    throw new Error('API client migration pending - use Supabase client instead');
+  },
+  post<T>(): Promise<{ data: T }> {
+    throw new Error('API client migration pending - use Supabase client instead');
+  },
+  delete(): Promise<unknown> {
+    throw new Error('API client migration pending - use Supabase client instead');
+  },
+};
 
 export default apiClient;
